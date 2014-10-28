@@ -106,6 +106,10 @@ gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
+
+gulp.task('inject', ['manualInject'], function() {
+    gulp.start('wiredep');
+});
 // Inject bower components into index.html
 gulp.task('wiredep', function() {
     var wiredep = require('wiredep').stream;
@@ -124,12 +128,12 @@ gulp.task('wiredep', function() {
 });
 
 // Inject any reference injection into index.html
-gulp.task('inject', function () {
+gulp.task('manualInject', function () {
   var target = gulp.src('app/index.html');
   // It's not necessary to read the files (will speed up things), we're only after their paths:
   var sources = gulp.src(['app/bower_components/html5-boilerplate/css/main.css'], {read: false});
 
-  return target.pipe($.inject(sources, {name:'blahblah'}))
+  return target.pipe($.inject(sources, {name:'inject', relative:true}))
     .pipe(gulp.dest('app'));
 });
 
@@ -172,6 +176,6 @@ gulp.task('watch', ['connect', 'serve'], function() {
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/images/**/*', ['images']);
-    gulp.watch('bower.json', ['wiredep']);
+    gulp.watch('bower.json', ['inject']);
 });
 
