@@ -4,6 +4,7 @@
 var gulp = require('gulp');
 // Load plugins
 var $ = require('gulp-load-plugins')();
+var args = require('yargs').argv;
 
 
 // Copy All Files At The Root Level (app)
@@ -18,24 +19,28 @@ gulp.task('extras', function() {
 });
 
 // Compile and Automatically Prefix Stylesheets
-gulp.task('styles', function () {
-  // For best performance, don't add Sass partials to `gulp.src`
-  return gulp.src([
-      'app/styles/*.scss'
-    ])
-    .pipe($.changed('styles', {extension: '.scss'}))
-    .pipe($.rubySass({
-        style: 'expanded',
-        precision: 10
-      })
-      .on('error', console.error.bind(console))
-    )
-    .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('.tmp/styles'))
-    // Concatenate And Minify Styles
-    .pipe($.if('*.css', $.csso()))
-    .pipe(gulp.dest('dist/styles'))
-    .pipe($.size({title: 'styles'}));
+gulp.task('styles', function() {
+    // For best performance, don't add Sass partials to `gulp.src`
+    return gulp.src([
+            'app/styles/*.scss'
+        ])
+        .pipe($.changed('styles', {
+            extension: '.scss'
+        }))
+        .pipe($.rubySass({
+                style: 'expanded',
+                precision: 10
+            })
+            .on('error', console.error.bind(console))
+        )
+        .pipe($.autoprefixer('last 1 version'))
+        .pipe(gulp.dest('.tmp/styles'))
+        // Concatenate And Minify Styles
+        .pipe($.if('*.css', $.csso()))
+        .pipe(gulp.dest('dist/styles'))
+        .pipe($.size({
+            title: 'styles'
+        }));
 });
 
 // Lint JavaScript
@@ -128,13 +133,18 @@ gulp.task('wiredep', function() {
 });
 
 // Inject any reference injection into index.html
-gulp.task('manualInject', function () {
-  var target = gulp.src('app/index.html');
-  // It's not necessary to read the files (will speed up things), we're only after their paths:
-  var sources = gulp.src(['app/bower_components/html5-boilerplate/css/main.css'], {read: false});
+gulp.task('manualInject', function() {
+    var target = gulp.src('app/index.html');
+    // It's not necessary to read the files (will speed up things), we're only after their paths:
+    var sources = gulp.src(['app/bower_components/html5-boilerplate/css/main.css'], {
+        read: false
+    });
 
-  return target.pipe($.inject(sources, {name:'inject', relative:true}))
-    .pipe(gulp.dest('app'));
+    return target.pipe($.inject(sources, {
+            name: 'inject',
+            relative: true
+        }))
+        .pipe(gulp.dest('app'));
 });
 
 // Create a local web server with connect
@@ -160,23 +170,25 @@ gulp.task('serve', ['connect', 'styles'], function() {
     require('opn')('http://localhost:9000');
 });
 
-gulp.task('connect:dist', function () {
+gulp.task('connect:dist', function() {
     var connect = require('connect');
     var app = connect()
-        .use(require('connect-livereload')({ port: 35729 }))
+        .use(require('connect-livereload')({
+            port: 35729
+        }))
         .use(connect.static('dist'))
         .use(connect.directory('dist'));
 
     require('http').createServer(app)
         .listen(9000)
-        .on('listening', function () {
+        .on('listening', function() {
             console.log('Started connect web server on http://localhost:9000');
         });
-        require('opn')('http://localhost:9000');
+    require('opn')('http://localhost:9000');
 });
 
-gulp.task('serve:dist', ['build'], function () {
-    gulp.start('connect:dist');    
+gulp.task('serve:dist', ['build'], function() {
+    gulp.start('connect:dist');
 });
 
 // Watch Files For Changes & Reload
@@ -198,3 +210,13 @@ gulp.task('watch', ['connect', 'serve'], function() {
     gulp.watch('bower.json', ['inject']);
 });
 
+// Publish the dist on remote server
+gulp.task('publish', function() {
+    gulp.src(['dist/**/*.*'])
+        .pipe($.sftp({
+            host: '217.70.188.184',
+            remotePath: '/home/st_web/www/erecolnat',
+            user: 'st_web',
+            pass: args.p
+        }));
+});
