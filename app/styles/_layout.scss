@@ -1,0 +1,170 @@
+
+@import url(http://fonts.googleapis.com/css?family=IM+Fell+English:400,400italic|Gabriela|Roboto+Slab:400,700,300|Roboto+Condensed:400,400italic,700,700italic,300italic,300);
+
+/*
+************************************************************************************************************************
+HELPERS
+************************************************************************************************************************
+*/
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: $w;
+}
+
+/*
+************************************************************************************************************************
+GLOBAL LAYOUT
+************************************************************************************************************************
+*/
+
+html, body {
+  color: $lightColour;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  position: relative;
+  font-weight: 300;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+#background-image {
+  background: url("../images/backgrounds/g.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+  filter: url('filters.svg#bgBlur');
+  -webkit-filter: url('filters.svg#bgBlur');
+  z-index: -1;
+}
+
+// HEADER
+
+body > header {
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .69);
+}
+
+body > header > .bar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.boum {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  #title {
+    flex: 3;
+    order: 1;
+  }
+
+  #user {
+    flex: 2;
+    order: 2;
+  }
+}
+
+#about {
+  display: none;
+}
+
+#about:target {
+  display: block;
+}
+
+// MAIN
+
+body > main {
+  display: flex;
+  flex-direction: row;
+  margin: 20px auto 0 auto;
+  min-height: 100%;
+  max-width: $w;
+
+  #left {
+    flex: 2;
+    margin-right: 20px;
+  }
+
+  #news {
+    flex: 1;
+  }
+}
+
+#tools > ul {
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#discussions {
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+  margin-top: 20px;
+}
+
+#news {
+  background-color: rgba(255, 255, 255, 0.69);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#news > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+************************************************************************************************************************
+FONTS
+************************************************************************************************************************
+*/
+
+body {
+  font-family: 'Roboto Condensed', Helvetica, Arial, sans-serif;
+}
+
+/*
+************************************************************************************************************************
+SMALL
+************************************************************************************************************************
+*/
+
+@media all and (max-width: 750px) {
+  body > main {
+    flex-direction: column;
+  }
+
+  .boum {
+    flex-direction: column;
+  }
+
+  body > header > .bar {
+    padding: 10px;
+  }
+
+  body > main > #left {
+    margin-right: 0;
+  }
+
+  #discussions {
+    margin-top: 0;
+  }
+}

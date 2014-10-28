@@ -5,6 +5,7 @@ var gulp = require('gulp');
 // Load plugins
 var $ = require('gulp-load-plugins')();
 
+
 // Copy All Files At The Root Level (app)
 gulp.task('extras', function() {
     return gulp.src(['app/*.*', '!app/*.html'], {
@@ -16,27 +17,11 @@ gulp.task('extras', function() {
         }));
 });
 
-// SASS pre-compilation
-// gulp.task('styles', function() {
-//     return gulp.src('app/styles/main.scss')
-//         .pipe($.rubySass({
-//             style: 'expanded',
-//             precision: 10
-//         }))
-//         .pipe($.autoprefixer('last 1 version'))
-//         .pipe(gulp.dest('.tmp/styles'))
-//         .pipe($.size());
-// });
-
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function () {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-      'app/styles/components/components.scss',
-      'app/styles/*.scss',
-      'app/styles/*.css'
-      // 'app/styles/**/*.scss',
-      // 'app/styles/**/**/*.scss',
+      'app/styles/*.scss'
     ])
     .pipe($.changed('styles', {extension: '.scss'}))
     .pipe($.rubySass({
@@ -121,7 +106,7 @@ gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
-// Inject bower components
+// Inject bower components into index.html
 gulp.task('wiredep', function() {
     var wiredep = require('wiredep').stream;
 
@@ -136,6 +121,16 @@ gulp.task('wiredep', function() {
             directory: 'app/bower_components'
         }))
         .pipe(gulp.dest('app'));
+});
+
+// Inject any reference injection into index.html
+gulp.task('inject', function () {
+  var target = gulp.src('app/index.html');
+  // It's not necessary to read the files (will speed up things), we're only after their paths:
+  var sources = gulp.src(['app/bower_components/html5-boilerplate/css/main.css'], {read: false});
+
+  return target.pipe($.inject(sources, {name:'blahblah'}))
+    .pipe(gulp.dest('app'));
 });
 
 // Create a local web server with connect

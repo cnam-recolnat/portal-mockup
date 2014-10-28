@@ -26,7 +26,8 @@
     "opn": "^0.1.1",
     "wiredep": "^1.4.3",
     "gulp-changed": "^1.0.0",
-    "gulp-if": "^1.2.5"
+    "gulp-if": "^1.2.5",
+    "gulp-inject": "^1.0.2"
   },
   "engines": {
     "node": ">=0.10.0"
