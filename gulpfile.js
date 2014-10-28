@@ -160,6 +160,25 @@ gulp.task('serve', ['connect', 'styles'], function() {
     require('opn')('http://localhost:9000');
 });
 
+gulp.task('connect:dist', function () {
+    var connect = require('connect');
+    var app = connect()
+        .use(require('connect-livereload')({ port: 35729 }))
+        .use(connect.static('dist'))
+        .use(connect.directory('dist'));
+
+    require('http').createServer(app)
+        .listen(9000)
+        .on('listening', function () {
+            console.log('Started connect web server on http://localhost:9000');
+        });
+        require('opn')('http://localhost:9000');
+});
+
+gulp.task('serve:dist', ['build'], function () {
+    gulp.start('connect:dist');    
+});
+
 // Watch Files For Changes & Reload
 gulp.task('watch', ['connect', 'serve'], function() {
     var server = $.livereload();

@@ -36,16 +36,12 @@ body {
 }
 
 #background-image {
-  background: url("../images/backgrounds/g.jpg") no-repeat center center fixed;
+  background: url("../images/backgrounds/h.jpg") no-repeat center center fixed;
   background-size: cover;
   display: block;
   width: 100%;
   height: 100%;
   position: fixed;
-  filter: blur(10px);
-  -webkit-filter: blur(10px);
-  filter: url('filters.svg#bgBlur');
-  -webkit-filter: url('filters.svg#bgBlur');
   z-index: -1;
 }
 
