@@ -17,15 +17,40 @@ gulp.task('extras', function() {
 });
 
 // SASS pre-compilation
-gulp.task('styles', function() {
-    return gulp.src('app/styles/main.scss')
-        .pipe($.rubySass({
-            style: 'expanded',
-            precision: 10
-        }))
-        .pipe($.autoprefixer('last 1 version'))
-        .pipe(gulp.dest('.tmp/styles'))
-        .pipe($.size());
+// gulp.task('styles', function() {
+//     return gulp.src('app/styles/main.scss')
+//         .pipe($.rubySass({
+//             style: 'expanded',
+//             precision: 10
+//         }))
+//         .pipe($.autoprefixer('last 1 version'))
+//         .pipe(gulp.dest('.tmp/styles'))
+//         .pipe($.size());
+// });
+
+// Compile and Automatically Prefix Stylesheets
+gulp.task('styles', function () {
+  // For best performance, don't add Sass partials to `gulp.src`
+  return gulp.src([
+      'app/styles/components/components.scss',
+      'app/styles/*.scss',
+      'app/styles/*.css'
+      // 'app/styles/**/*.scss',
+      // 'app/styles/**/**/*.scss',
+    ])
+    .pipe($.changed('styles', {extension: '.scss'}))
+    .pipe($.rubySass({
+        style: 'expanded',
+        precision: 10
+      })
+      .on('error', console.error.bind(console))
+    )
+    .pipe($.autoprefixer('last 1 version'))
+    .pipe(gulp.dest('.tmp/styles'))
+    // Concatenate And Minify Styles
+    .pipe($.if('*.css', $.csso()))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe($.size({title: 'styles'}));
 });
 
 // Lint JavaScript

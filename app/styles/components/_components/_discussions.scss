@@ -1,0 +1,86 @@
+#discussions {
+  background-color: rgba(0, 0, 0, 0.82);
+  color: $lightColour;
+  padding: 10px;
+
+  h2, h3 {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 200%;
+    margin-bottom: 1em;
+  }
+
+  h3 {
+    font-size: 150%;
+    margin-bottom: 0.5em;
+  }
+
+  > ul {
+    list-style: none;
+  }
+
+  table {
+    margin-bottom: 1em;
+    width: 100%;
+
+    td {
+      border: 1px solid $titleBorderColour;
+      color: #bbb;
+      padding: 2px;
+      text-align: center;
+    }
+
+    // Module colour
+
+    td.contribuer {
+      color: $contribuerColour;
+      border: 1px solid $contribuerColour;
+    }
+
+    td.travailler {
+      color: $travaillerColour;
+      border: 1px solid $travaillerColour;
+    }
+
+    td.visiter {
+      color: $visiterColour;
+      border: 1px solid $visiterColour;
+    }
+
+    td.module-vv:before {
+      content: 'VV';
+    }
+
+    td.module-q:before {
+      content: 'Qu';
+    }
+
+    td.module-h:before {
+      content: 'He';
+    }
+
+    td.module-coll:before {
+      content: 'Col';
+    }
+
+    td.module-cl:before {
+      content: 'Lab';
+    }
+
+    // Go to discussion
+
+    a {
+      color: $lightColour;
+      display: block;
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: $titleBorderColour;
+    }
+  }
+}

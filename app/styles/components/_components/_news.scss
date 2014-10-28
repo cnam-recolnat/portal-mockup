@@ -1,0 +1,81 @@
+#news {
+  display: flex;
+  flex-direction: row;
+
+  .blogs {
+    width: 100%;
+
+    a {
+      background-color: rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      color: $darkColour;
+      display: block;
+      font-family: 'IM Fell English', serif;
+      line-height: 30px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    a:hover {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .sep {
+    flex: 1;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+
+    img {
+      width: 125px;
+    }
+  }
+}
+
+.news-entry {
+  color: #000000;
+  margin-top: 20px;
+
+  header h3 {
+    font-size: 1.25em;
+    margin: 0;
+  }
+
+  img {
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, .82);
+    max-height: 100px;
+  }
+
+  img.right {
+    float: right;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+
+  img.left {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+
+  p {
+    font-size: 90%;
+    margin: 0;
+    text-align: justify;
+    width: 100%;
+  }
+
+  time {
+    color: #666666;
+    display: block;
+    font-size: 90%;
+    margin-bottom: 5px;
+    text-align: right;
+    width: 100%;
+  }
+}

@@ -1,0 +1,43 @@
+$titleHeight: 50px;
+$minHeight: 111px;
+
+body > header {
+
+  #title, #user {
+    min-height: $minHeight;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .baselines {
+    height: $titleHeight;
+  }
+
+  h1 {
+    color: $lightColour;
+    font-family: 'Gabriela', serif;
+    font-size: 200%;
+    width: 100%;
+    border-bottom: $titleBorderSize solid $titleBorderColour;
+
+    img {
+      height: $titleHeight;
+      margin-bottom: 5px;
+    }
+  }
+
+  .baseline1 {
+    margin: 0;
+    padding: 0;
+    font-size: 90%;
+  }
+
+  .baseline2 {
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+    font-size: 90%;
+  }
+}

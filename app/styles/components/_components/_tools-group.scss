@@ -1,0 +1,128 @@
+.tools-group {
+  $discSize: 70px;
+  $detailMinSize: 200px;
+  $toolGroupHeight: 200px;
+
+  box-sizing: border-box;
+  height: $toolGroupHeight;
+  list-style: none;
+  position: relative;
+
+  overflow: hidden;
+  perspective: 1700px;
+  perspective-origin: 0 50%;
+
+  img {
+    display: block;
+    height: $toolGroupHeight;
+    position: relative;
+    width: 100%;
+    transition: transform 0.5s;
+  }
+
+  figure {
+    transform-style: preserve-3d;
+
+    figcaption {
+      background-color: rgba(0, 0, 0, 0.69);
+      bottom: 10px;
+      position: absolute;
+      right: 10px;
+
+      transform: translateY(0);
+      transition: transform 0.82s 0s ease-in-out;
+
+      h3 {
+        font-family: 'IM Fell English', serif;
+        font-size: 175%;
+        padding: 5px;
+      }
+    }
+  }
+
+  figure:hover figcaption {
+    transform: translateY(100px);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .tools-detail {
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.82);
+    font-size: 90%;
+    height: 100%;
+    left: 0;
+    line-height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    min-width: $detailMinSize;
+
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+    transform: rotateY(-90deg);
+    transition: transform 0.5s;
+
+    > div {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0;
+      padding: 5px;
+      width: 100%;
+
+      > a {
+        box-sizing: border-box;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        padding: 5px;
+        text-decoration: none;
+        width: 100%;
+
+        img {
+          box-shadow: 0 0 5px 2px rgba(0, 0, 0, .25);
+          width: $discSize;
+          min-width: $discSize;
+          height: $discSize;
+          border-radius: $discSize/2;
+          -webkit-border-radius: $discSize/2;
+          -moz-border-radius: $discSize/2;
+          @extend %vertical-align;
+        }
+
+        > div {
+          margin-left: 10px;
+        }
+
+        > div > div {
+          @extend %vertical-align;
+        }
+
+        > div > div > p {
+          color: $lightColour;
+          font-size: 110%;
+        }
+
+        > div > div > h4 {
+          font-size: 120%;
+        }
+      }
+
+      > a:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
+  }
+
+  figure:hover .tools-detail {
+    transform: rotateY(0deg);
+    transition: transform 0.5s 0.1s;
+  }
+
+  @media (min-width: 400px) {
+    .tools-detail {
+      width: 50%;
+    }
+  }
+}
