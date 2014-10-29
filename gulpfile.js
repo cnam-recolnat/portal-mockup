@@ -18,6 +18,18 @@ gulp.task('extras', function() {
         }));
 });
 
+var AUTOPREFIXER_BROWSERS = [
+  'ie >= 7',
+  'ie_mob >= 7',
+  'ff >= 22',
+  'chrome >= 30',
+  'safari >= 5',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 4.4',
+  'bb >= 10'
+];
+
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function() {
     // For best performance, don't add Sass partials to `gulp.src`
@@ -33,7 +45,10 @@ gulp.task('styles', function() {
             })
             .on('error', console.error.bind(console))
         )
-        .pipe($.autoprefixer('last 1 version'))
+        .pipe($.autoprefixer({
+            browsers: AUTOPREFIXER_BROWSERS,
+            cascade: true
+        }))
         .pipe(gulp.dest('.tmp/styles'))
         // Concatenate And Minify Styles
         .pipe($.if('*.css', $.csso()))
@@ -65,6 +80,10 @@ gulp.task('html', ['styles', 'scripts'], function() {
         .pipe($.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
+        .pipe($.autoprefixer({
+            browsers: AUTOPREFIXER_BROWSERS,
+            cascade: true
+        }))
         .pipe($.csso())
         .pipe(cssFilter.restore())
         .pipe($.useref.restore())
