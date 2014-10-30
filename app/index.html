@@ -17,10 +17,7 @@
         <!-- endbuild -->
         <!-- build:css styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
-        
-
-        
+        <!-- endbuild -->        
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -488,16 +485,32 @@ NEWS
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
+        
+    
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="bower_components/bowser/bowser.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
+        <script>
+if (!bowser.firefox) {
+var e = document.getElementsByTagName("header");
+    e[0].parentNode.removeChild(e[0]);
+    var e = document.getElementsByTagName("main");
+    e[0].parentNode.removeChild(e[0]);
+    document.body.innerHTML = '<p style="color:black">Cette page est en cours de développement et ne fonctionne pas encore avec les différents navigateurs du marché. Pour la consulter, il vous faut utiliser <a style="color:black" href="https://www.mozilla.org/en-US/firefox/new/">la dernière version de Firefox</a>.</p><p style="color:black">Pour toute question ou remarque, vous pouvez écrire à thomas.bottini[at]cnam.fr</p>';
+    // document.body.style.background = 'white';
+}
+</script>
+
+
 </body>
+
 </html>
